@@ -2,7 +2,7 @@
 
 import jsonfile from 'jsonfile';
 
-import { IUser } from '@src/models/User';
+import { IMaterial } from '@src/models/Material';
 
 
 // **** Variables **** //
@@ -13,7 +13,7 @@ const DB_FILE_NAME = 'database.json';
 // **** Types **** //
 
 interface IDb {
-  users: IUser[];
+  materiales: IMaterial[];
 }
 
 

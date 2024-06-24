@@ -1,4 +1,4 @@
-import { IUser } from '@src/models/User';
+import Material, { IMaterial } from '@src/models/Material';
 import { getRandomInt } from '@src/util/misc';
 import orm from './MockOrm';
 
@@ -8,11 +8,11 @@ import orm from './MockOrm';
 /**
  * Get one user.
  */
-async function getOne(email: string): Promise<IUser | null> {
+async function getOne(id: number): Promise<IMaterial | null> {
   const db = await orm.openDb();
-  for (const user of db.users) {
-    if (user.email === email) {
-      return user;
+  for (const material of db.materiales) {
+    if (material.id === id) {
+      return material;
     }
   }
   return null;
@@ -23,7 +23,7 @@ async function getOne(email: string): Promise<IUser | null> {
  */
 async function persists(id: number): Promise<boolean> {
   const db = await orm.openDb();
-  for (const user of db.users) {
+  for (const user of db.materiales) {
     if (user.id === id) {
       return true;
     }
@@ -34,33 +34,32 @@ async function persists(id: number): Promise<boolean> {
 /**
  * Get all users.
  */
-async function getAll(): Promise<IUser[]> {
+async function getAll(): Promise<IMaterial[]> {
   const db = await orm.openDb();
-  return db.users;
+  return db.materiales;
 }
 
 /**
  * Add one user.
  */
-async function add(user: IUser): Promise<void> {
+async function add(material: IMaterial): Promise<void> {
   const db = await orm.openDb();
-  user.id = getRandomInt();
-  db.users.push(user);
+  material.id = getRandomInt();
+  db.materiales.push(material);
   return orm.saveDb(db);
 }
 
 /**
  * Update a user.
  */
-async function update(user: IUser): Promise<void> {
+async function update(material: IMaterial): Promise<void> {
   const db = await orm.openDb();
-  for (let i = 0; i < db.users.length; i++) {
-    if (db.users[i].id === user.id) {
-      const dbUser = db.users[i];
-      db.users[i] = {
-        ...dbUser,
-        name: user.name,
-        email: user.email,
+  for (let i = 0; i < db.materiales.length; i++) {
+    if (db.materiales[i].id === material.id) {
+      const dbMaterial = db.materiales[i];
+      db.materiales[i] = {
+        ...dbMaterial,
+        nombre: material.nombre
       };
       return orm.saveDb(db);
     }
@@ -72,14 +71,13 @@ async function update(user: IUser): Promise<void> {
  */
 async function delete_(id: number): Promise<void> {
   const db = await orm.openDb();
-  for (let i = 0; i < db.users.length; i++) {
-    if (db.users[i].id === id) {
-      db.users.splice(i, 1);
+  for (let i = 0; i < db.materiales.length; i++) {
+    if (db.materiales[i].id === id) {
+      db.materiales.splice(i, 1);
       return orm.saveDb(db);
     }
   }
 }
-
 
 // **** Export default **** //
 

@@ -2,8 +2,8 @@ import { Router } from 'express';
 import jetValidator from 'jet-validator';
 
 import Paths from '../common/Paths';
-import User from '@src/models/User';
-import UserRoutes from './UserRoutes';
+import Material from '@src/models/Material';
+import MaterialRoutes from './MaterialRoutes';
 
 
 // **** Variables **** //
@@ -14,37 +14,37 @@ const apiRouter = Router(),
 
 // ** Add UserRouter ** //
 
-const userRouter = Router();
+const materialRouter = Router();
 
 // Get all users
-userRouter.get(
-  Paths.Users.Get,
-  UserRoutes.getAll,
+materialRouter.get(
+  Paths.Materiales.Get,
+  MaterialRoutes.getAll,
 );
 
 // Add one user
-userRouter.post(
-  Paths.Users.Add,
-  validate(['user', User.isUser]),
-  UserRoutes.add,
+materialRouter.post(
+  Paths.Materiales.Add,
+  validate(['material', Material.isMaterial]),
+  MaterialRoutes.add,
 );
 
 // Update one user
-userRouter.put(
-  Paths.Users.Update,
-  validate(['user', User.isUser]),
-  UserRoutes.update,
+materialRouter.put(
+  Paths.Materiales.Update,
+  validate(['material', Material.isMaterial]),
+  MaterialRoutes.update,
 );
 
 // Delete one user
-userRouter.delete(
-  Paths.Users.Delete,
+materialRouter.delete(
+  Paths.Materiales.Delete,
   validate(['id', 'number', 'params']),
-  UserRoutes.delete,
+  MaterialRoutes.delete,
 );
 
 // Add UserRouter
-apiRouter.use(Paths.Users.Base, userRouter);
+apiRouter.use(Paths.Materiales.Base, materialRouter);
 
 
 // **** Export default **** //
