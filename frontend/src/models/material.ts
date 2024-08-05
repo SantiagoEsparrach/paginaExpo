@@ -56,6 +56,9 @@ function isMaterial(arg: unknown): boolean {
   );
 }
 
+export function contarMaterial(material: Material, materiales: IMaterial[]): number {
+  return materiales.filter((m) => m.nombre === material).length;
+}
 
 // **** Export default **** //
 
@@ -63,4 +66,5 @@ export default {
   new: new_,
   from,
   isMaterial,
+  contarMaterial,
 } as const;
