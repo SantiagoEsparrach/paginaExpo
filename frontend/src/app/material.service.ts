@@ -15,6 +15,9 @@ export class MaterialService {
   getMateriales() {
     return this.http.get<any>(`${this.BASE_URL}/`);
   }
+  getAllDias() {
+    return this.http.get<any>(`${this.BASE_URL}/dias/`);
+  }
 
   getOneMaterial() {
     return this.http.get<void>(`${this.BASE_URL}/${id}`);

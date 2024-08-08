@@ -22,6 +22,11 @@ materialRouter.get(
   MaterialRoutes.getAll,
 );
 
+materialRouter.get(
+  Paths.Materiales.GetAllDays,
+  MaterialRoutes.getAllDias,
+);
+
 // Add one user
 materialRouter.post(
   Paths.Materiales.Add,

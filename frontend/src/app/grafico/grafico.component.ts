@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MaterialService } from '../material.service';  
-import { Material } from '../models/material.enum';  
+import { Material } from '../../models/material.enum';
 
 @Component({
   selector: 'app-grafico',
@@ -8,6 +8,7 @@ import { Material } from '../models/material.enum';
   styleUrls: ['./grafico.component.css']
 })
 export class GraficoComponent implements OnInit, AfterViewInit {
+  fechas: Material[] = [];
   chartOptions: any = {
     title: {
       text: "Distribución de Materiales"
@@ -29,9 +30,19 @@ export class GraficoComponent implements OnInit, AfterViewInit {
   }
 
   obtenerDatos() {
+    this.materialService.getAllDias().subscribe(
+      (data: Material[]) => {
+        this.fechas = data;
+        console.log('Fechas:', this.fechas);
+      },
+      (error) => {
+        console.error('Error fetching materials:', error);
+      }
+    );
     this.materialService.getMateriales().subscribe(
       (data: Material[]) => {
         this.chartOptions.data[0].dataPoints = this.generateDataPoints(data);
+
         this.renderChart();
       },
       (error) => {
@@ -42,19 +53,21 @@ export class GraficoComponent implements OnInit, AfterViewInit {
 
   private generateDataPoints(data: Material[]): any[] {
     return [
-      { label: "Otro", y: this.contarMaterial(Material.Otro, data) },
-      { label: "Metal", y: this.contarMaterial(Material.Metal, data) },
-      { label: "Papel", y: this.contarMaterial(Material.Papel, data) },
-      { label: "Cartón", y: this.contarMaterial(Material.Carton, data) },
-      { label: "Plástico", y: this.contarMaterial(Material.Plastico, data) },
-      { label: "Vidrio", y: this.contarMaterial(Material.Vidrio, data) },
-      { label: "Comida", y: this.contarMaterial(Material.Comida, data) },
-      { label: "Electrónico", y: this.contarMaterial(Material.Electronico, data) }
+      { label: "Otro", y: this.contarMaterial(Material.Otro.toString(), data) },
+      { label: "Metal", y: this.contarMaterial(Material.Metal.toString(), data) },
+      { label: "Papel", y: this.contarMaterial(Material.Papel.toString(), data) },
+      { label: "Cartón", y: this.contarMaterial(Material.Carton.toString(), data) },
+      { label: "Plástico", y: this.contarMaterial(Material.Plastico.toString(), data) },
+      { label: "Vidrio", y: this.contarMaterial(Material.Vidrio.toString(), data) },
+      { label: "Comida", y: this.contarMaterial(Material.Comida.toString(), data) },
+      { label: "Electrónico", y: this.contarMaterial(Material.Electronico.toString(), data) }
     ];
   }
 
-  private contarMaterial(material: Material, data: Material[]): number {
-    return data.filter(item => item.nombre === material).length;
+  private contarMaterial(material: String, data: any[]): number {
+    const fecha= new Date();
+    
+    return data.filter(item => item.nombre === material.toString()  ).length;
   }
 
   private renderChart() {

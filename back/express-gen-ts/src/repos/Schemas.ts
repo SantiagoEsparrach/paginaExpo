@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const materialSchema = new mongoose.Schema({
     id: Number,
-    nombre: Number,
+    nombre: String,
     tirado: Date,
 });
 

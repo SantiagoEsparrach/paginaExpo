@@ -3,6 +3,7 @@ import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import MaterialService from '@src/services/MaterialService';
 import { IMaterial } from '@src/models/Material';
 import { IReq, IRes } from './types/express/misc';
+import { get } from 'http';
 
 
 // **** Functions **** //
@@ -12,7 +13,7 @@ import { IReq, IRes } from './types/express/misc';
  */
 async function getAll(_: IReq, res: IRes) {
   const materiales = await MaterialService.getAll();
-  return res.status(HttpStatusCodes.OK).json({ materiales });
+  return res.status(HttpStatusCodes.OK).json( materiales );
 }
 
 /**
@@ -33,6 +34,10 @@ async function update(req: IReq<{material: IMaterial}>, res: IRes) {
   return res.status(HttpStatusCodes.OK).end();
 }
 
+async function getAllDias(_: IReq, res: IRes) {
+  const materiales = await MaterialService.getAllDias();
+  return res.status(HttpStatusCodes.OK).json( materiales );
+}
 /**
  * Delete one user.
  */
@@ -49,5 +54,6 @@ export default {
   getAll,
   add,
   update,
+  getAllDias,
   delete: delete_,
 } as const;

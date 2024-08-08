@@ -3,6 +3,7 @@ import HttpStatusCodes from '@src/common/HttpStatusCodes';
 
 import MaterialRepo from '@src/repos/MaterialRepo';
 import { IMaterial } from '@src/models/Material';
+import { get } from 'http';
 
 
 // **** Variables **** //
@@ -25,7 +26,9 @@ function getAll(): Promise<IMaterial[]> {
 function addOne(material: IMaterial): Promise<void> {
   return MaterialRepo.add(material);
 }
-
+function getAllDias(): Promise<IMaterial[]> {
+  return MaterialRepo.getAllDias();
+}
 /**
  * Update one user.
  */
@@ -62,6 +65,7 @@ async function _delete(id: number): Promise<void> {
 export default {
   getAll,
   addOne,
+  getAllDias,
   updateOne,
   delete: _delete,
 } as const;

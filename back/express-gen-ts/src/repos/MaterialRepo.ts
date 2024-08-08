@@ -1,7 +1,16 @@
-import Material, { IMaterial } from '@src/models/Material';
 import { getRandomInt } from '@src/util/misc';
-import orm from './MockOrm';
+import mongoose from "mongoose";
+import Schemas from './Schemas';
+import { IMaterial } from '@src/models/Material';
+import { format, toZonedTime } from 'date-fns-tz';
+import { get } from 'http';
+//import Artista from './ConciertoRepo';
 
+const DB_URL: string = "mongodb://localhost:27017/PaginaExpo";
+
+mongoose.connect(DB_URL);
+
+const Material = mongoose.model('Material', Schemas.materialSchema);
 
 // **** Functions **** //
 
@@ -9,75 +18,58 @@ import orm from './MockOrm';
  * Get one user.
  */
 async function getOne(id: number): Promise<IMaterial | null> {
-  const db = await orm.openDb();
-  for (const material of db.materiales) {
-    if (material.id === id) {
-      return material;
-    }
-  }
-  return null;
+  return await Material.findOne({ id: id });
 }
 
 /**
  * See if a user with the given id exists.
  */
 async function persists(id: number): Promise<boolean> {
-  const db = await orm.openDb();
-  for (const user of db.materiales) {
-    if (user.id === id) {
-      return true;
-    }
-  }
-  return false;
+  const material = await Material.findOne({ id: id });
+  return material != null;
 }
 
 /**
  * Get all users.
  */
 async function getAll(): Promise<IMaterial[]> {
-  const db = await orm.openDb();
-  return db.materiales;
+  return await Material.find({});
+}
+async function getAllDias(): Promise<IMaterial[]> {
+  const date = new Date();
+  date.setDate(date.getDate()-7);
+  return await Material.find({tirado: { $gte: date }});
 }
 
 /**
  * Add one user.
  */
-async function add(material: IMaterial): Promise<void> {
-  const db = await orm.openDb();
-  material.id = getRandomInt();
-  db.materiales.push(material);
-  return orm.saveDb(db);
+async function add(material: IMaterial): Promise<any> {
+  do{
+    material.id = getRandomInt()
+    const now = new Date();
+    now.setHours(now.getHours() - 3);
+    material.tirado = now;
+
+  } while(await persists(material.id));
+  const nuevoMaterial = new Material(material);
+  return await nuevoMaterial.save();
 }
 
 /**
  * Update a user.
  */
-async function update(material: IMaterial): Promise<void> {
-  const db = await orm.openDb();
-  for (let i = 0; i < db.materiales.length; i++) {
-    if (db.materiales[i].id === material.id) {
-      const dbMaterial = db.materiales[i];
-      db.materiales[i] = {
-        ...dbMaterial,
-        nombre: material.nombre
-      };
-      return orm.saveDb(db);
-    }
-  }
+async function update(material: IMaterial): Promise<any> {
+  return await Material.findOneAndUpdate({ id: material.id }, material, { new: true });
 }
 
 /**
  * Delete one user.
  */
-async function delete_(id: number): Promise<void> {
-  const db = await orm.openDb();
-  for (let i = 0; i < db.materiales.length; i++) {
-    if (db.materiales[i].id === id) {
-      db.materiales.splice(i, 1);
-      return orm.saveDb(db);
-    }
-  }
+async function delete_(id: number): Promise<any> {
+  return await Material.findOneAndDelete({ id: id });
 }
+
 
 // **** Export default **** //
 
@@ -85,6 +77,7 @@ export default {
   getOne,
   persists,
   getAll,
+  getAllDias,
   add,
   update,
   delete: delete_,

@@ -9,6 +9,7 @@ export default {
     Base: '/materiales',
     Get: '/',
     GetOne: '/:id',
+    GetAllDays: '/dias',
     Add: '/',
     Update: '/',
     Delete: '/:id',
