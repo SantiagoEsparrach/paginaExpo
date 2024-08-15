@@ -1,9 +1,7 @@
 import { getRandomInt } from '@src/util/misc';
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import Schemas from './Schemas';
 import { IMaterial } from '@src/models/Material';
-import { format, toZonedTime } from 'date-fns-tz';
-import { get } from 'http';
 //import Artista from './ConciertoRepo';
 
 const DB_URL: string = "mongodb://localhost:27017/PaginaExpo";
@@ -69,7 +67,6 @@ async function update(material: IMaterial): Promise<any> {
 async function delete_(id: number): Promise<any> {
   return await Material.findOneAndDelete({ id: id });
 }
-
 
 // **** Export default **** //
 

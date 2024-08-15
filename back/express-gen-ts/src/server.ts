@@ -1,34 +1,19 @@
-/**
- * Setup express server.
- */
-
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import path from 'path';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
 import logger from 'jet-logger';
-
 import 'express-async-errors';
-
 import BaseRouter from '@src/routes';
-
 import Paths from '@src/common/Paths';
 import EnvVars from '@src/common/EnvVars';
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import RouteError from '@src/common/RouteError';
 import { NodeEnvs } from '@src/common/misc';
-
 import cors from "cors";
-import mongoose from "mongoose";
-
-
-// **** Variables **** //
 
 const app = express();
-
-
-// **** Setup **** //
 
 // Basic middleware
 app.use(express.json());
@@ -67,9 +52,6 @@ app.use((
   return res.status(status).json({ error: err.message });
 });
 
-
-// **** Front-End Content **** //
-
 // Set views directory (html)
 const viewsDir = path.join(__dirname, 'views');
 app.set('views', viewsDir);
@@ -87,8 +69,5 @@ app.get('/', (_: Request, res: Response) => {
 app.get('/users', (_: Request, res: Response) => {
   return res.sendFile('users.html', { root: viewsDir });
 });
-
-
-// **** Export default **** //
 
 export default app;
