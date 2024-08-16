@@ -64,6 +64,10 @@ export class GraficoComponent implements OnInit, AfterViewInit {
     ];
   }
 
+  private generarGraficoDias(){
+    
+  }
+
   private contarMaterial(material: String, data: any[]): number {
     const fecha= new Date();
     

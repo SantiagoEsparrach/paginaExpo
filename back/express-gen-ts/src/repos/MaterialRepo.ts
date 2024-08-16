@@ -48,10 +48,10 @@ async function add(material: IMaterial): Promise<any> {
     const now = new Date();
     now.setHours(now.getHours() - 3);
     material.tirado = now;
-
   } while(await persists(material.id));
   const nuevoMaterial = new Material(material);
   return await nuevoMaterial.save();
+
 }
 
 /**

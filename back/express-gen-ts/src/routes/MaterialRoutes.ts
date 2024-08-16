@@ -1,10 +1,7 @@
 import HttpStatusCodes from '@src/common/HttpStatusCodes';
-
 import MaterialService from '@src/services/MaterialService';
 import { IMaterial } from '@src/models/Material';
 import { IReq, IRes } from './types/express/misc';
-import { get } from 'http';
-
 
 // **** Functions **** //
 

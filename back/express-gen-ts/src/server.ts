@@ -12,7 +12,9 @@ import HttpStatusCodes from '@src/common/HttpStatusCodes';
 import RouteError from '@src/common/RouteError';
 import { NodeEnvs } from '@src/common/misc';
 import cors from "cors";
-
+const http = require('http');
+const socketIo = require('socket.io');
+const objectRoutes = require('./routes/MaterialRoutes');
 const app = express();
 
 // Basic middleware
@@ -20,6 +22,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser(EnvVars.CookieProps.Secret));
 app.use(cors());
+
+const server = http.createServer(app);
+const io = socketIo(server);
+
+app.use(express.json());
+app.use('/api/materiales', objectRoutes(io));  // Pasa la instancia de `io` a las rutas
 
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {

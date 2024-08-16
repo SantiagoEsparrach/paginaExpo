@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import jetValidator from 'jet-validator';
-
 import Paths from '../common/Paths';
 import Material from '@src/models/Material';
 import MaterialRoutes from './MaterialRoutes';
@@ -10,8 +9,6 @@ import MaterialRoutes from './MaterialRoutes';
 
 const apiRouter = Router(),
   validate = jetValidator();
-
-
 // ** Add UserRouter ** //
 
 const materialRouter = Router();
