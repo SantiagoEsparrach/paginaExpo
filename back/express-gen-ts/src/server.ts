@@ -27,7 +27,7 @@ const server = http.createServer(app);
 const io = socketIo(server);
 
 app.use(express.json());
-app.use('/api/materiales', objectRoutes(io));  // Pasa la instancia de `io` a las rutas
+// app.use('/api/materiales', objectRoutes(io));  // Pasa la instancia de `io` a las rutas
 
 // Show routes called in console during development
 if (EnvVars.NodeEnv === NodeEnvs.Dev.valueOf()) {
