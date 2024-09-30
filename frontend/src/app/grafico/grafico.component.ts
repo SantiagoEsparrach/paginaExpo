@@ -1,6 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { MaterialService } from '../material.service';  
 import { Material } from '../../models/material.enum';
+import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-grafico',
@@ -11,7 +14,7 @@ export class GraficoComponent implements OnInit, AfterViewInit {
   fechas: Material[] = [];
   chartOptions: any = {
     title: {
-      text: "Distribución de Materiales"
+      text: "Distribución de Materiales (Historico)"
     },
     data: [{
       type: "column",
@@ -19,7 +22,7 @@ export class GraficoComponent implements OnInit, AfterViewInit {
     }]
   };
 
-  constructor(private materialService: MaterialService) {}
+  constructor(private materialService: MaterialService, private router: Router) {}
 
   ngOnInit() {
     this.obtenerDatos();
@@ -73,6 +76,14 @@ export class GraficoComponent implements OnInit, AfterViewInit {
     
     return data.filter(item => item.nombre === material.toString()  ).length;
   }
+
+  navegarADia() {
+    this.router.navigate(['/dia']);
+  }
+  navegarASemana() {
+    this.router.navigate(['/semana']);
+  }
+
 
   private renderChart() {
     if (typeof window !== 'undefined') {

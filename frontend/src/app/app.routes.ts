@@ -5,7 +5,7 @@ import { GraficoDiasComponent } from './grafico-dias/grafico-dias.component';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'historico',
         component: GraficoComponent,
         title: 'Grafico'
     },
