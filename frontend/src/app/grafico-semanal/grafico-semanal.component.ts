@@ -75,7 +75,8 @@ export class GraficoSemanalComponent implements OnInit, AfterViewInit {
     const fechaTirado = new Date(tirado);
 
     // Obtener el primer día de la semana (lunes)
-    const primerDiaSemana = new Date(hoy.setDate(hoy.getDate() - hoy.getDay() + (hoy.getDay() === 0 ? -6 : 1))); // Si es domingo, restamos más
+    const primerDiaSemana = new Date(hoy);
+    primerDiaSemana.setDate(hoy.getDate() - hoy.getDay() + (hoy.getDay() === 0 ? -6 : 1));
 
     // Obtener el último día de la semana (domingo)
     const ultimoDiaSemana = new Date(primerDiaSemana);
@@ -83,7 +84,7 @@ export class GraficoSemanalComponent implements OnInit, AfterViewInit {
 
     // Comprobar si la fecha de tirado está entre el lunes y domingo de esta semana
     return fechaTirado >= primerDiaSemana && fechaTirado <= ultimoDiaSemana;
-  }
+}
 
 navegarAHistorico() {
   this.router.navigate(['/historico']);

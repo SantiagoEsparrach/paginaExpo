@@ -5,12 +5,12 @@ import { IMaterial } from '../../models/material';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
-@Component({
-  selector: 'app-grafico',
-  templateUrl: './grafico-dias.component.html',
-  styleUrls: ['./grafico-dias.component.css']
-})
-export class GraficoDiasComponent implements OnInit, AfterViewInit {
+  @Component({
+    selector: 'app-grafico',
+    templateUrl: './grafico-dias.component.html',
+    styleUrls: ['./grafico-dias.component.css']
+  })
+  export class GraficoDiasComponent implements OnInit, AfterViewInit {
   fechas: Material[] = [];
   chartOptions: any = {
     title: {
@@ -72,20 +72,20 @@ export class GraficoDiasComponent implements OnInit, AfterViewInit {
     const hoy = new Date();
     const fechaMaterial = new Date(fecha);
 
-    return (
-      fechaMaterial.getDate() === hoy.getDate() &&
-      fechaMaterial.getMonth() === hoy.getMonth() &&
-      fechaMaterial.getFullYear() === hoy.getFullYear()
-    );
-  }
+    // Normalizar ambas fechas a medianoche
+    hoy.setHours(0, 0, 0, 0);
+    fechaMaterial.setHours(0, 0, 0, 0);
+
+    return fechaMaterial.getTime() === hoy.getTime();
+  } 
 
   navegarAHistorico() {
     this.router.navigate(['/historico']);
-}
+  }
 
-navegarASemana() {
+  navegarASemana() {
   this.router.navigate(['/semana']);
-}
+  }
 
   private renderChart() {
     if (typeof window !== 'undefined') {
