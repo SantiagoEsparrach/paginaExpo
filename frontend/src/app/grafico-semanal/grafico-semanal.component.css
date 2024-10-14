@@ -1,0 +1,31 @@
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    margin: 5px; /* Espaciado entre botones */
+}
+
+.btn-semana {
+    background-color: #007bff; /* Color de fondo */
+    color: white; /* Color del texto */
+}
+
+.btn-hoy {
+    background-color: #28a745; /* Otro color de fondo */
+    color: white; /* Color del texto */
+}
+
+.btn:hover {
+    transform: scale(1.05); /* Efecto de aumento al pasar el mouse */
+}
+
+.btn-semana:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse */
+}
+
+.btn-hoy:hover {
+    background-color: #218838; /* Color más oscuro al pasar el mouse */
+}

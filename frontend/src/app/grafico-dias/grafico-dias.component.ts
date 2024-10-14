@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   fechas: Material[] = [];
   chartOptions: any = {
     title: {
-      text: "Distribución de Materiales (Hoy)"
+      text: "Distribución de Materiales de hoy"
     },
     data: [{
       type: "column",

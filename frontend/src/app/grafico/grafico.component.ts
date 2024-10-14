@@ -14,7 +14,7 @@ export class GraficoComponent implements OnInit, AfterViewInit {
   fechas: Material[] = [];
   chartOptions: any = {
     title: {
-      text: "Distribución de Materiales (Historico)"
+      text: "Distribución de Materiales histórico"
     },
     data: [{
       type: "column",

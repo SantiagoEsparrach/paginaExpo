@@ -15,7 +15,7 @@ export class GraficoSemanalComponent implements OnInit, AfterViewInit {
   fechas: Material[] = [];
   chartOptions: any = {
     title: {
-      text: "Distribución de Materiales (Esta Semana)"
+      text: "Distribución de Materiales de esta semana"
     },
     data: [{
       type: "column",
