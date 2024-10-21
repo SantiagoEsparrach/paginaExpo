@@ -51,14 +51,12 @@ import { Router } from '@angular/router';
   // Genera los puntos del gráfico basándose en los materiales filtrados por día
   private generateDataPoints(data: IMaterial[]): any[] {
     return [
-      { label: "Otro", y: this.contarMaterial(Material.Otro.toString(), data) },
       { label: "Metal", y: this.contarMaterial(Material.Metal.toString(), data) },
       { label: "Papel", y: this.contarMaterial(Material.Papel.toString(), data) },
       { label: "Cartón", y: this.contarMaterial(Material.Carton.toString(), data) },
       { label: "Plástico", y: this.contarMaterial(Material.Plastico.toString(), data) },
       { label: "Vidrio", y: this.contarMaterial(Material.Vidrio.toString(), data) },
-      { label: "Comida", y: this.contarMaterial(Material.Comida.toString(), data) },
-      { label: "Electrónico", y: this.contarMaterial(Material.Electronico.toString(), data) }
+      { label: "Biológico", y: this.contarMaterial(Material.Comida.toString(), data) },
     ];
   }
 
